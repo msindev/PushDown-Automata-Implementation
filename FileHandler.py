@@ -33,8 +33,11 @@ class FileHandler:
         stack_symbols = lines[2].rstrip()
         initial_state = lines[3][0]
         initial_stack = lines[4][0]
-        final_states = lines[5]
-        productions = lines[6:]
+        final_states = lines[5].rstrip()
+        productions = lines[6:].rstrip()
+        for production in productions:
+            production = production.split()
+        
         parsedLines = {'states':states,
                         'input_symbols':input_symbols,
                         'stack_symbols':stack_symbols,
