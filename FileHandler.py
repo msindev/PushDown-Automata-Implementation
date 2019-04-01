@@ -13,9 +13,10 @@ class FileHandler:
                     lines = [line.rstrip() for line in file]
             except IOError as e:
                 print("File could not be opened.")
-                return 0
+                exit(0)
         else:
             print('{} :File was not found in the specified path.'.format(filePath))
+            exit(0)
         return lines
 
     def parseFile(self,lines):
@@ -28,16 +29,16 @@ class FileHandler:
             Line 7 and onwards: Productions in form of
                     (Current State, Current Input Symbol, Current Top of Stack, Next State, Push/Pop Operation Symbol)
             '''
-        states = lines[0].rstrip()
-        input_symbols = lines[1].rstrip()
-        stack_symbols = lines[2].rstrip()
+        states = lines[0].rstrip().split()
+        input_symbols = lines[1].rstrip().split()
+        stack_symbols = lines[2].rstrip().split()
         initial_state = lines[3][0]
         initial_stack = lines[4][0]
-        final_states = lines[5].rstrip()
-        productions = lines[6:].rstrip()
-        for production in productions:
-            production = production.split()
-        
+        final_states = lines[5].rstrip().split()
+        productions = lines[6:]
+        for i in range(len(productions)):
+            productions[i] = productions[i].rstrip().split()
+
         parsedLines = {'states':states,
                         'input_symbols':input_symbols,
                         'stack_symbols':stack_symbols,
