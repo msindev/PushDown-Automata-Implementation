@@ -36,5 +36,3 @@ class FileHandler:
         final_states = lines[5]
         productions = lines[6:]
         return (states, input_symbols, stack_symbols, initial_state, initial_stack, final_states, productions)
-
-    
