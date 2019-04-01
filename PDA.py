@@ -1,41 +1,51 @@
-import FileHandler as fh
+from FileHandler import FileHandler
 
 class PDA:
-
     def __init__(self):
-        stack = []
+        self.stack = []
 
     def compute(self, inputString, parsedLines):
         #Retrieve all information
         initStackSymbol = parsedLines['initial_stack']
-        stack.append(initStackSymbol)
+        self.stack.append(initStackSymbol)
         finalStates = parsedLines['final_states']
         initialState = parsedLines['initial_state']
         stackSymbols = parsedLines['stack_symbols']
         productions = parsedLines['productions']
 
-        global currentStackSymbol
-        global currentState
+        currentStackSymbol = initStackSymbol
+        currentState = initialState
 
         for char in inputString:
+            print('Current TOS', currentStackSymbol)
             for production in productions:
                 if ((production[0] == currentState) and (production[1] == char) and (production[2] == currentStackSymbol)):
                     currentState = production[3]
                     if(len(production[4]) > 1):
-                        stack.append(upper(char))
-                    elif ((production[4] == e) and (len(stack) != 0)):
-                        stack.pop()
-            print('Moved: ({}, {}'.format(currentState, stack))
+                        self.stack.append(char)
+                    elif ((production[4] == 'e') and (len(self.stack) != 0)):
+                        print('Entered here')
+                        self.stack.pop()
+                        break
+            currentStackSymbol = self.stack[len(self.stack)-1]
+            print('Moved: ({}, {})'.format(currentState, self.stack))
 
-        if(len(stack) == 0 or currentState in finalStates):
-            print('String accepted.')
+            
+        if(len(self.stack) == 1 or currentState in finalStates):
+            print('String accepted by PDA.')
         else:
-            print('String rejected.')
+            print('String rejected by PDA.')
 
-    def main(self):
-        automataFilePath = input('Enter the automata file path: ')
-        lines = fh.readFile(automataFilePath)
-        inputString = input('Enter input String: ')
-        inputString = inputString.rstrip()
-        parsedLines = fh.parseFile(lines)
-        compute(inputString, parsedLines)
+def main():
+    fh = FileHandler()
+    pda = PDA()
+    automataFilePath = input('Enter the automata file path: ')
+    lines = fh.readFile(automataFilePath)
+    inputString = input('Enter input String: ')
+    inputString = inputString.rstrip()
+    parsedLines = fh.parseFile(lines)
+    print(parsedLines)
+    pda.compute(inputString, parsedLines)
+
+if __name__ == '__main__':
+    main()
