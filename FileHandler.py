@@ -18,7 +18,7 @@ class FileHandler:
             print('{} :File was not found in the specified path.'.format(filePath))
         return lines
 
-    def ParseFile(self,lines):
+    def parseFile(self,lines):
         ''' Line 1: Total States
             Line 2: Input Word Symbols
             Line 3: Stack Symbols
@@ -35,4 +35,11 @@ class FileHandler:
         initial_stack = lines[4][0]
         final_states = lines[5]
         productions = lines[6:]
-        return (states, input_symbols, stack_symbols, initial_state, initial_stack, final_states, productions)
+        parsedLines = {'states':states,
+                        'input_symbols':input_symbols,
+                        'stack_symbols':stack_symbols,
+                        'initial_state':initial_state,
+                        'initial_stack':initial_stack,
+                        'final_states':final_states,
+                        'productions':productions}
+        return parsedLines
