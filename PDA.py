@@ -7,6 +7,7 @@ class PDA:
 
     def compute(self, inputString, parsedLines):
         #Retrieve all information
+        inputString += 'e'
         initStackSymbol = parsedLines['initial_stack']
         self.stack.append(initStackSymbol)
         finalStates = parsedLines['final_states']
@@ -24,16 +25,20 @@ class PDA:
             for production in productions:
                 if ((production[0] == currentState) and (production[1] == char) and (production[2] == currentStackSymbol)):
                     currentState = production[3]
-                    if(len(production[4]) > 1):
+                    if(len(production[4]) == 2):
                         self.stack.append(char)
-                    elif ((production[4] == 'e') and (len(self.stack) != 0)):
+                    elif(len(production[4]) == 3):
+                        self.stack.append(char)
+                        self.stack.append(char)
+                    elif ((production[4] == 'e') and (len(self.stack) != 1)):
                         self.stack.pop()
                         break
             previousStackSymbol = currentStackSymbol
             currentStackSymbol = self.stack[len(self.stack)-1]
             print('{}\t {}\t {}\t ({}, {})'.format(currentState, char, previousStackSymbol, currentStackSymbol, self.stack))
-            time.sleep(2)
-        if(len(self.stack) == 1 or currentState in finalStates):
+            #time.sleep(2)
+
+        if(currentState in finalStates):
             print('String accepted by PDA.')
         else:
             print('String rejected by PDA.')
@@ -44,13 +49,13 @@ def main():
     automataFilePath = input('Enter the automata file path: ')
     lines = fh.readFile(automataFilePath)
     print('Reading Automata File')
-    time.sleep(2)
+    #time.sleep(2)
     print('Automata File Successfully Read')
-    time.sleep(2)
+    #time.sleep(2)
     inputString = input('Enter input String: ')
     inputString = inputString.rstrip()
     print('Loading Details from Automata File: ')
-    time.sleep(3)
+    #time.sleep(3)
     parsedLines = fh.parseFile(lines)
     print('States: ', parsedLines['states'])
     print('Input Symbols: ', parsedLines['input_symbols'])
@@ -61,7 +66,7 @@ def main():
     print('Productions List:')
     for production in parsedLines['productions']:
         print('\t', production)
-    time.sleep(2)
+    #time.sleep(2)
     print('Details loaded')
     print('Computing the Transition Table:')
     pda.compute(inputString, parsedLines)
