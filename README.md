@@ -18,3 +18,6 @@ Currently 3 examples have been included-
  1. 0ⁿ1ⁿ  
  2. Number of 0's = Number of 1's
  3. Palindrome - wcwᴿ
+## Usage
+To run use - `python PDA.py`
+You can also define your own productions and use them. Make sure to give full path of the automata file, or better keep the automata file in the same directory as the program.
