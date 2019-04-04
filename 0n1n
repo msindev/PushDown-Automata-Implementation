@@ -1,12 +1,14 @@
 Q P F
 0 1
-Z A
+Z 0
 Q
 Z
 F
-Q 0 Z Q AZ
-Q 0 0 Q AA
+Q 0 Z Q 0Z
+Q 0 0 Q 00
 Q 1 0 P e
-Q e Z F Z
+P 1 Z P 0Z
 P e Z F Z
 P 1 0 P e
+Q e Z F Z
+P 0 Z R 0Z
