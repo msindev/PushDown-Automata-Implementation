@@ -1,0 +1,13 @@
+Q F
+0 1
+Z 0 1
+Q
+Z
+F
+Q 0 Z Q 0Z
+Q 1 Z Q 1Z
+Q 0 1 Q e
+Q 1 0 Q e
+Q 0 0 Q 00
+Q 1 1 Q 11
+Q e Z F Z
